@@ -16,4 +16,6 @@ func InitRouter(r *gin.Engine) {
 		ctx.FileAttachment(imgpath, ctx.Param("imgid"))
 	})
 	r.POST("/register", controllers.Register)
+	r.POST("/test", controllers.Test)
+	r.POST("/login/authentication", controllers.LoginAuth)
 }

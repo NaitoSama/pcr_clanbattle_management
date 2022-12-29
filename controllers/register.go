@@ -6,11 +6,6 @@ import (
 	"pekopekopeko.cloud/pcrcbm/models"
 )
 
-type User struct {
-	Name     string `gorm:"column:username"`
-	Password string `gorm:"column:password"`
-}
-
 func Register(ctx *gin.Context) {
 	name := ctx.PostForm("username")
 	password := ctx.PostForm("password")
