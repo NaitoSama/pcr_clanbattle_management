@@ -5,6 +5,7 @@ import (
 	"pekopekopeko.cloud/pcrcbm/models"
 )
 
+// LoginAuth 登录验证
 func LoginAuth(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
