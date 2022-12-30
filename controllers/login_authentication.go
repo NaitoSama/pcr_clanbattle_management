@@ -6,6 +6,7 @@ import (
 )
 
 // LoginAuth 登录验证
+// TODO 登录后生成cookie和session
 func LoginAuth(ctx *gin.Context) {
 	username := ctx.PostForm("username")
 	password := ctx.PostForm("password")
