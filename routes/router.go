@@ -32,4 +32,9 @@ func InitRouter(r *gin.Engine) {
 
 	r.POST("/test", controllers.Test)
 
+	index := r.Group("/index")
+	{
+		index.GET("", controllers.BossValue)
+	}
+
 }
