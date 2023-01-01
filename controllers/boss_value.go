@@ -1,13 +1,14 @@
 package controllers
 
 import (
+	"errors"
 	"github.com/gin-gonic/gin"
 	"pekopekopeko.cloud/pcrcbm/common"
 	"pekopekopeko.cloud/pcrcbm/models"
 	"strconv"
 )
 
-// todo boss的报刀
+// todo boss的状态调整
 
 // BossValue get boss血量信息等
 func BossValue(ctx *gin.Context) {
@@ -25,16 +26,16 @@ func BossValue(ctx *gin.Context) {
 }
 
 // PostToContent IndexPost 获取对boss攻击的post
-func PostToContent(ctx *gin.Context) (int, int64) {
+func PostToContent(ctx *gin.Context) (int, int64, error) {
 	boss_id, err := strconv.Atoi(ctx.PostForm("bossid"))
 	if err != nil {
-		ctx.String(415, "bossid类型错误，应为整数\n")
+		return 0, 0, errors.New("bossid类型错误，应为整数\n")
 	}
 	attack_value, err := strconv.ParseInt(ctx.PostForm("atkval"), 0, 64)
 	if err != nil {
-		ctx.String(415, "atkval类型错误，应为整数\n")
+		return 0, 0, errors.New("atkval类型错误，应为整数\n")
 	}
-	return boss_id, attack_value
+	return boss_id, attack_value, nil
 }
 
 // GetBossValueAndSyume 获取目标boss血量，周目数
@@ -72,7 +73,11 @@ func SyumeToStage(boss_syume int) string {
 
 // AttackBoss 攻击boss判定与执行
 func AttackBoss(ctx *gin.Context) {
-	boss_id, attack_value := PostToContent(ctx)
+	boss_id, attack_value, err := PostToContent(ctx)
+	if err != nil {
+		ctx.String(415, "表单异常数据")
+		panic(err)
+	}
 	boss_value, boss_syume := GetBossValueAndSyume(boss_id)
 	if attack_value < boss_value {
 		boss_value -= attack_value
@@ -88,4 +93,5 @@ func AttackBoss(ctx *gin.Context) {
 		})
 		ctx.String(200, "出尾刀完成")
 	}
+
 }
