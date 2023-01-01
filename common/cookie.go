@@ -5,8 +5,6 @@ import (
 	"pekopekopeko.cloud/pcrcbm/models"
 )
 
-// todo 生成cookie 使用mysql存储sessionid和过期时间
-
 func AddCookie() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		_, err := ctx.Cookie("peko_cookie")
