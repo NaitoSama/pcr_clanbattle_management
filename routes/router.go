@@ -37,6 +37,7 @@ func InitRouter(r *gin.Engine) {
 		index.GET("", controllers.BossValue)
 		index.POST("/attack", controllers.AttackBoss)
 		index.POST("/correction", controllers.SetBossSyumeAndValue)
+		index.GET("/homepage", controllers.MyHomePage)
 	}
 
 }
