@@ -6,7 +6,6 @@ import (
 )
 
 // todo 退出登录删除cookie和session
-// todo 读取cookie，如果登录的返回账号名，否则返回错误
 
 // AddCookie cookie中间件 如果没有cookie则给你cookie并添加session
 func AddCookie() gin.HandlerFunc {
