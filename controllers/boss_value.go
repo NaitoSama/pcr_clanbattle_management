@@ -9,8 +9,6 @@ import (
 	"strconv"
 )
 
-// todo boss的状态调整
-
 // BossValue get boss血量信息等
 func BossValue(ctx *gin.Context) {
 	//boss := common.ReadJson()
@@ -23,7 +21,7 @@ func BossValue(ctx *gin.Context) {
 	//ctx.String(200, boss_value)
 
 	boss_value := common.GetBossValue()
-	ctx.JSON(200, boss_value)
+	ctx.HTML(200, "index.html", boss_value)
 }
 
 // PostToContent IndexPost 获取对boss攻击的post
@@ -133,7 +131,7 @@ func PostToContentWhenCor(ctx *gin.Context) (int, int, int64, error) {
 	}
 	boss_value, err := strconv.ParseInt(ctx.PostForm("bossvalue"), 0, 64)
 	if err != nil {
-		return 0, 0, 0, errors.New("atkval类型错误，应为整数\n")
+		return 0, 0, 0, errors.New("bossvalue类型错误，应为整数\n")
 	}
 	return boss_id, boss_syume, boss_value, nil
 }

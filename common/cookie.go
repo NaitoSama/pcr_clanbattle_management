@@ -32,3 +32,16 @@ func CookieToUserName(ctx *gin.Context) string {
 	models.DB.Model(models.Sessions{}).Where("sessionid = ?", cookie).Pluck("account", &username)
 	return username
 }
+
+// IsLogIned 中间件，验证cookie是否登录过，否则返回登录界面，不能在/login和/register路径下使用！
+func IsLogIned() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		cookie, _ := ctx.Cookie("peko_cookie")
+		var login int
+		models.DB.Model(models.Sessions{}).Where("sessionid = ?", cookie).Pluck("login", &login)
+		if login == 0 {
+			ctx.Redirect(307, "/login")
+			panic("未登录")
+		}
+	}
+}

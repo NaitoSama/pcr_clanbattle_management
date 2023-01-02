@@ -10,7 +10,7 @@ import (
 func main() {
 	r := gin.Default()
 	r.Use(common.AddCookie())
-	r.LoadHTMLGlob("./views/**")
+	r.LoadHTMLGlob("./views/**.html")
 	routes.InitRouter(r)
 	err := r.Run(":8080")
 	if err != nil {

@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
+	"pekopekopeko.cloud/pcrcbm/common"
 	"pekopekopeko.cloud/pcrcbm/controllers"
 )
 
-// todo 将登录和注册的不需要登录状态，其他都需要登录状态
 func InitRouter(r *gin.Engine) {
 	login := r.Group("/login")
 	{
@@ -32,12 +32,14 @@ func InitRouter(r *gin.Engine) {
 
 	r.POST("/test", controllers.Test)
 
-	index := r.Group("/index")
+	index := r.Group("/index").Use(common.IsLogIned())
 	{
 		index.GET("", controllers.BossValue)
+		index.POST("", controllers.BossValue)
 		index.POST("/attack", controllers.AttackBoss)
 		index.POST("/correction", controllers.SetBossSyumeAndValue)
 		index.GET("/homepage", controllers.MyHomePage)
+		index.GET("/logout", controllers.LogOut)
 	}
 
 }
