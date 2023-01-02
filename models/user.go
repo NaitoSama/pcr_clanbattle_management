@@ -3,9 +3,10 @@ package models
 // User 申明User结构体 对应user表结构
 type User struct {
 	//ID       int64
-	Username string `gorm:"column:username"`
-	Password string `gorm:"column:password"`
-	Nickname string `gorm:"column:nickname"`
+	Username  string `gorm:"column:username"`
+	Password  string `gorm:"column:password"`
+	Nickname  string `gorm:"column:nickname"`
+	Authority int    `gorm:"column:authority"`
 }
 
 // TableName 将User结构体和user表相关联
