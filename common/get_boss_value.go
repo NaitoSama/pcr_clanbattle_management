@@ -1,6 +1,8 @@
 package common
 
-import "pekopekopeko.cloud/pcrcbm/models"
+import (
+	"pekopekopeko.cloud/pcrcbm/models"
+)
 
 func GetBossValue() map[string]map[string]interface{} {
 	var boss []map[string]interface{}

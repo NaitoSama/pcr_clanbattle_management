@@ -1,82 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-  <style>
-  </style>
+	<title>会战管理</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			height: 100vh;
+			margin: 0;
+			background: url(/statics/image/77728001_27691_0.jpg);
+			/* 设置背景铺满 */
+			background-repeat:no-repeat;
+			background-size:cover;
+		}
+
+		/* 设置页眉的样式 */
+		.header {
+			background: url(/statics/image/71502133_27691_0.jpg);
+			padding: 20px;
+			text-align: center;
+		}
+
+		/* 设置顶部导航栏的样式 */
+		.topnav {
+			overflow: hidden;
+			/*background-color: #333;*/
+			background: rgb(238,174,202);
+			background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+		}
+
+		/* 设置 topnav 链接的样式 */
+		.topnav a {
+			float: left;
+			display: block;
+			color: #f2f2f2;
+			text-align: center;
+			padding: 14px 16px;
+			text-decoration: none;
+		}
+
+		/* 改变鼠标悬停时的颜色 */
+		.topnav a:hover {
+			background-color: pink;
+			color: gray;
+		}
+
+		/* 创建并排的三个非等列 */
+		.column {
+			float: left;
+			width: 16.66%;
+			padding: 15px;
+			text-shadow: rgba(62,66,66,0.55) -10px 7px 11px;
+			background-color: #E1E9EF;
+			opacity: 70%;
+		}
+
+		/* 清除列之后的浮动 */
+		.row:after {
+			content: "";
+			display: table;
+			clear: both;
+		}
+
+		.boss_box{
+			border-radius: 20px;
+			background: #f2f2f2;
+			box-shadow:  5px 5px 2px #616161,
+			-5px -5px 2px #ffffff;
+		}
+
+		progress {
+			width: 200px;
+		}
+
+		.button {
+			width: fit-content;
+			min-width: 20px;
+			height: 30px;
+			padding: 3px;
+			border-radius: 5px;
+			border: 2.5px solid #E0E1E4;
+			box-shadow: 0px 0px 20px -20px;
+			cursor: pointer;
+			background-color: white;
+			transition: all 0.2s ease-in-out 0ms;
+			user-select: none;
+			font-family: 'Poppins', sans-serif;
+		}
+
+		.button:hover {
+			background-color: #F2F2F2;
+			box-shadow: 0px 0px 20px -18px;
+		}
+
+		.button:active {
+			transform: scale(0.95);
+		}
+
+
+
+
+		.input:hover {
+			border: 2px solid lightgrey;
+			box-shadow: 0px 0px 20px -17px;
+		}
+
+		.input:active {
+			transform: scale(0.95);
+		}
+
+		.input:focus {
+			border: 2px solid grey;
+		}
+
+		/* 响应式布局 - 创建堆叠而非并排的三列 */
+		@media screen and (max-width:1200px) {
+			.column {
+				width: 100%;
+			}
+		}
+	</style>
 </head>
 <body>
-  <div class="boss">
-    1王
-    <br>
-    血量:{{.first.boss_value}}
-    <br>
-    周目：{{.first.boss_syume}}
-  </div>
-  <div class="boss">
-    2王
-    <br>
-    血量:{{.second.boss_value}}
-    <br>
-    周目：{{.second.boss_syume}}
-  </div>
-  <div class="boss">
-    3王
-    <br>
-    血量:{{.third.boss_value}}
-    <br>
-    周目：{{.third.boss_syume}}
-  </div>
-  <div class="boss">
-    4王
-    <br>
-    血量:{{.fourth.boss_value}}
-    <br>
-    周目：{{.fourth.boss_syume}}
-  </div>
-  <div class="boss">
-    5王
-    <br>
-    血量:{{.fifth.boss_value}}
-    <br>
-    周目：{{.fifth.boss_syume}}
-  </div>
-  <div>
-    <form action="/index/attack" method="post">
-      以下为报刀，普通成员、管理员均可用
-      <br>
-      攻击目标：<select name="bossid">
-      <option value="1">1王</option>
-      <option value="2">2王</option>
-      <option value="3">3王</option>
-      <option value="4">4王</option>
-      <option value="5">5王</option>
-    </select>
-      <br>
-      造成伤害：<input type="text" name="atkval" placeholder="输入伤害">
-      <br>
-      <input type="submit" value="攻击！">
-    </form>
-  </div>
-  <div>
-    <form action="/index/correction" method="post">
-      以下为调整boss状态，仅管理员可用
-      <br>
-      调整目标：<select name="bossid">
-      <option value="1">1王</option>
-      <option value="2">2王</option>
-      <option value="3">3王</option>
-      <option value="4">4王</option>
-      <option value="5">5王</option>
-    </select>
-      <br>
-      调整后周目：<input type="text" name="bosssyume" size="10" placeholder="输入一个正整数">
-      <br>
-      调整后血量：<input type="text" name="bossvalue" placeholder="输入血量">
-      <br>
-      <input type="submit" value="调整！">
-    </form>
-  </div>
+
+<div class="header">
+	<h1>会战管理</h1>
+	<p>虽然生活很辛苦，但刀还是要出的（笑）</p>
+</div>
+
+<div class="topnav">
+	<a href="#">Link</a>
+	<a href="#">Link</a>
+	<a href="#">Link</a>
+</div>
+
+<div class="row">
+	<div class="column">
+		<h2>1王</h2>
+		<p>
+		血量:{{.first.boss_value}}
+		<br>
+		周目：{{.first.boss_syume}}
+		</p>
+	</div>
+
+	<div class="column">
+		<h2>2王</h2>
+		<p>
+			血量:{{.second.boss_value}}
+			<br>
+			周目：{{.second.boss_syume}}
+		</p>
+	</div>
+
+	<div class="column">
+		<h2>3王</h2>
+		<p>
+			血量:{{.third.boss_value}}
+			<br>
+			周目：{{.third.boss_syume}}
+		</p>
+	</div>
+	<div class="column">
+		<h2>4王</h2>
+		<p>
+			血量:{{.fourth.boss_value}}
+			<br>
+			周目：{{.fourth.boss_syume}}
+		</p>
+	</div>
+	<div class="column">
+		<h2>5王</h2>
+		<p>
+			血量:{{.fifth.boss_value}}
+			<br>
+			周目：{{.fifth.boss_syume}}
+		</p>
+	</div>
+
+	<div class="column">
+		<form action="/index/attack" method="post">
+			<h2>报刀</h2>
+			普通成员、管理员均可用
+			<br>
+			攻击目标：<select name="bossid">
+			<option value="1">1王</option>
+			<option value="2">2王</option>
+			<option value="3">3王</option>
+			<option value="4">4王</option>
+			<option value="5">5王</option>
+		</select>
+			<br>
+			造成伤害：<input type="text" name="atkval" placeholder="输入伤害">
+			<br>
+			<input class="button" type="submit" value="攻击">
+		</form>
+
+		<form action="/index/correction" method="post">
+			<h2>调整boss状态</h2>
+			仅管理员可用
+			<br>
+			调整目标：<select name="bossid">
+			<option value="1">1王</option>
+			<option value="2">2王</option>
+			<option value="3">3王</option>
+			<option value="4">4王</option>
+			<option value="5">5王</option>
+		</select>
+			<br>
+			调整后周目：<input type="text" name="bosssyume" size="10" placeholder="输入一个正整数">
+			<br>
+			调整后血量：<input type="text" name="bossvalue" placeholder="输入血量">
+			<br>
+			<input class="button" type="submit" value="调整">
+		</form>
+
+	</div>
+
+</div>
+
 </body>
 </html>
