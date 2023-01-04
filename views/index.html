@@ -192,6 +192,26 @@
 			}
 		}
 
+		function LogOut(){
+			const xhr = new XMLHttpRequest();
+			xhr.open("GET", "/index/logout", true);
+			xhr.send();
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status >= 200 && xhr.status < 300 ) {
+						alert("退出登录成功")
+						location.reload();
+					}
+				}
+			}
+		}
+
+		function ProgressBar(boss_value,now_max_value){
+			var b = parseInt(now_max_value)
+			var a = parseInt(boss_value)
+			return Math.ceil(Number(a) / Number(b) * 100)
+		}
+
 
 	</script>
 
@@ -206,51 +226,92 @@
 <div class="topnav">
 	<a href="#">Link</a>
 	<a href="#">Link</a>
-	<a href="#">Link</a>
+	<a onclick="LogOut()">退出登录</a>
 </div>
 
 <div class="row">
 	<div class="column">
 		<h2>1王</h2>
+		<progress max="100" id="progress1"></progress>
 		<p>
-		血量:{{.first.boss_value}}
-		<br>
+		血量:
+			<span id="boss1n">{{.first.boss_value}}</span><span> / </span><span id="boss1m">{{.first.now_max_value}}</span>
+		</p>
+		<p>
 		周目：{{.first.boss_syume}}
 		</p>
+		<script>
+			boss1n = document.getElementById("boss1n").textContent
+			boss1m = document.getElementById("boss1m").textContent
+			document.getElementById("progress1").value = ProgressBar(boss1n,boss1m)
+		</script>
+
 	</div>
 
 	<div class="column">
 		<h2>2王</h2>
+		<progress max="100" id="progress2"></progress>
 		<p>
-			血量:{{.second.boss_value}}
-			<br>
+			血量:
+			<span id="boss2n">{{.second.boss_value}}</span><span> / </span><span id="boss2m">{{.second.now_max_value}}</span>
+		</p>
+		<p>
 			周目：{{.second.boss_syume}}
 		</p>
+		<script>
+			boss2n = document.getElementById("boss2n").textContent
+			boss2m = document.getElementById("boss2m").textContent
+			document.getElementById("progress2").value = ProgressBar(boss2n,boss2m)
+		</script>
 	</div>
 
 	<div class="column">
 		<h2>3王</h2>
+		<progress max="100" id="progress3"></progress>
 		<p>
-			血量:{{.third.boss_value}}
-			<br>
+			血量:
+			<span id="boss3n">{{.third.boss_value}}</span><span> / </span><span id="boss3m">{{.third.now_max_value}}</span>
+		</p>
+		<p>
 			周目：{{.third.boss_syume}}
 		</p>
+		<script>
+			boss3n = document.getElementById("boss3n").textContent
+			boss3m = document.getElementById("boss3m").textContent
+			document.getElementById("progress3").value = ProgressBar(boss3n,boss3m)
+		</script>
 	</div>
 	<div class="column">
 		<h2>4王</h2>
+		<progress max="100" id="progress4"></progress>
 		<p>
-			血量:{{.fourth.boss_value}}
-			<br>
+			血量:
+			<span id="boss4n">{{.fourth.boss_value}}</span><span> / </span><span id="boss4m">{{.fourth.now_max_value}}</span>
+		</p>
+		<p>
 			周目：{{.fourth.boss_syume}}
 		</p>
+		<script>
+			boss4n = document.getElementById("boss4n").textContent
+			boss4m = document.getElementById("boss4m").textContent
+			document.getElementById("progress4").value = ProgressBar(boss4n,boss4m)
+		</script>
 	</div>
 	<div class="column">
 		<h2>5王</h2>
+		<progress max="100" id="progress5"></progress>
 		<p>
-			血量:{{.fifth.boss_value}}
-			<br>
+			血量:
+			<span id="boss5n">{{.fifth.boss_value}}</span><span> / </span><span id="boss5m">{{.fifth.now_max_value}}</span>
+		</p>
+		<p>
 			周目：{{.fifth.boss_syume}}
 		</p>
+		<script>
+			boss5n = document.getElementById("boss5n").textContent
+			boss5m = document.getElementById("boss5m").textContent
+			document.getElementById("progress5").value = ProgressBar(boss5n,boss5m)
+		</script>
 	</div>
 
 	<div class="column">

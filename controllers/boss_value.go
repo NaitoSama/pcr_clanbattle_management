@@ -94,8 +94,9 @@ func AttackBoss(ctx *gin.Context) {
 		boss_stage := SyumeToStage(boss_syume)
 		boss_value = StageToGetBossValue(boss_id, boss_stage)
 		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Updates(models.Boss{
-			BossValue: boss_value,
-			BossSyume: boss_syume,
+			BossValue:   boss_value,
+			BossSyume:   boss_syume,
+			NowMaxValue: boss_value,
 		})
 		ctx.String(202, "出尾刀完成")
 	}
@@ -172,9 +173,12 @@ func SetBossSyumeAndValue(ctx *gin.Context) {
 		ctx.String(415, err.Error())
 		panic(err)
 	}
+	boss_stage := SyumeToStage(boss_syume)
+	now_max_value := StageToGetBossValue(boss_id, boss_stage)
 	models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Updates(models.Boss{
-		BossValue: boss_value,
-		BossSyume: boss_syume,
+		BossValue:   boss_value,
+		BossSyume:   boss_syume,
+		NowMaxValue: now_max_value,
 	})
 	ctx.String(200, "boss状态调整成功")
 }

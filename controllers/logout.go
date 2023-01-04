@@ -10,5 +10,6 @@ func LogOut(ctx *gin.Context) {
 	cookie, _ := ctx.Cookie("peko_cookie")
 	models.DB.Where("sessionid = ?", cookie).Delete(models.Sessions{})
 	ctx.SetCookie("peko_cookie", "", -1, "/", "", false, true)
-	ctx.Redirect(307, "/login")
+	//ctx.Redirect(307, "/login")
+	ctx.String(200, "退出登录成功")
 }
