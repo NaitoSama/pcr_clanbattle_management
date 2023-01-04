@@ -9,17 +9,26 @@ import (
 
 // Register 注册函数，会验证是否用户名已存在
 func Register(ctx *gin.Context) {
-	name := ctx.PostForm("username")
-	password := ctx.PostForm("password")
+	//name := ctx.PostForm("username")
+	//password := ctx.PostForm("password")
+	type JsonUser struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	var jsonData JsonUser
+	err := ctx.ShouldBindJSON(&jsonData)
+	if err != nil {
+		panic(err)
+	}
 	user := models.User{
-		Username: name,
-		Password: password,
+		Username: jsonData.Username,
+		Password: jsonData.Password,
 	}
 	judg := models.RegisterAuth(&user)
 	if judg == false {
 		ctx.String(403, "该用户已存在")
-		time.Sleep(time.Duration(3) * time.Second)
-		ctx.Redirect(304, "http://localhost:8080/register")
+		//time.Sleep(time.Duration(3) * time.Second)
+		//ctx.Redirect(304, "http://localhost:8080/register")
 	} else {
 		err := models.Register(&user)
 		if err != nil {
@@ -29,8 +38,8 @@ func Register(ctx *gin.Context) {
 			ctx.Redirect(304, "http://localhost:8080/register")
 		} else {
 			ctx.String(200, "注册成功")
-			time.Sleep(time.Duration(3) * time.Second)
-			ctx.Redirect(304, "http://localhost:8080/login")
+			//time.Sleep(time.Duration(3) * time.Second)
+			//ctx.Redirect(304, "http://localhost:8080/login")
 		}
 	}
 }

@@ -7,11 +7,20 @@ import (
 
 // LoginAuth 登录验证
 func LoginAuth(ctx *gin.Context) {
-	username := ctx.PostForm("username")
-	password := ctx.PostForm("password")
+	type JsonUser struct {
+		Username string `json:"username"`
+		Password string `json:"password"`
+	}
+	var jsonData JsonUser
+	err := ctx.ShouldBindJSON(&jsonData)
+	if err != nil {
+		panic(err)
+	}
+	//username := ctx.PostForm("username")
+	//password := ctx.PostForm("password")
 	user := models.User{}
-	err := models.DB.Where("username = ? AND password = ?", username, password).Take(&user)
-	if err.Error != nil {
+	err2 := models.DB.Where("username = ? AND password = ?", jsonData.Username, jsonData.Password).Take(&user)
+	if err2.Error != nil {
 		ctx.String(401, "账号或密码错误")
 	} else {
 
@@ -19,8 +28,9 @@ func LoginAuth(ctx *gin.Context) {
 		session := models.Sessions{}
 		models.DB.Model(&session).Where("sessionid = ?", cookie).Updates(models.Sessions{
 			Login:   1,
-			Account: username,
+			Account: jsonData.Username,
 		})
-		ctx.Redirect(307, "/index")
+		//ctx.Redirect(307, "/index")
+		ctx.Status(200)
 	}
 }
