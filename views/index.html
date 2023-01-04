@@ -77,28 +77,28 @@
 			width: 200px;
 		}
 
-		.button {
-			width: fit-content;
-			min-width: 20px;
-			height: 30px;
-			padding: 3px;
-			border-radius: 5px;
-			border: 2.5px solid #E0E1E4;
-			box-shadow: 0px 0px 20px -20px;
-			cursor: pointer;
-			background-color: white;
-			transition: all 0.2s ease-in-out 0ms;
-			user-select: none;
-			font-family: 'Poppins', sans-serif;
+		button {
+			padding: 6px 15px;
+			border: 0;
+			border-radius: 100px;
+			background-color: #2ba8fb;
+			color: #ffffff;
+			font-weight: Bold;
+			transition: all 0.5s;
+			-webkit-transition: all 0.5s;
+			margin: 5px
 		}
 
-		.button:hover {
-			background-color: #F2F2F2;
-			box-shadow: 0px 0px 20px -18px;
+		button:hover {
+			background-color: #6fc5ff;
+			box-shadow: 0 0 20px #6fc5ff50;
 		}
 
-		.button:active {
-			transform: scale(0.95);
+		button:active {
+			background-color: #3d94cf;
+			transition: all 0.25s;
+			-webkit-transition: all 0.25s;
+			box-shadow: none;
 		}
 
 
@@ -124,6 +124,77 @@
 			}
 		}
 	</style>
+
+	<script type="text/javascript">
+		function Attack() {
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/index/attack", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			// var formData = new FormData();
+			var bossid = document.getElementById("bossid").value;
+			var atkval = document.getElementById("atkval").value;
+			// formData.append("username", username);
+			// formData.append("password", password);
+			var jsonData = {
+				"bossid": bossid,
+				"atkval": atkval,
+			}
+			xhr.send(JSON.stringify(jsonData));
+			// var responsetext = xhr.responseText;
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 201) {
+						alert("出刀完成")
+						location.reload();
+					}
+					if (xhr.status === 202) {
+						alert("出尾刀完成")
+						location.reload();
+					}
+					if (xhr.status === 415){
+						alert("输入数值有误");
+					}
+				}
+			}
+		}
+
+		function Correction() {
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/index/correction", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			// var formData = new FormData();
+			var bossid = document.getElementById("bossidc").value;
+			var bosssyume = document.getElementById("bosssyume").value;
+			var bossvalue = document.getElementById("bossvalue").value;
+			// formData.append("username", username);
+			// formData.append("password", password);
+			var jsonData = {
+				"bossid": bossid,
+				"bosssyume": bosssyume,
+				"bossvalue": bossvalue,
+			}
+			xhr.send(JSON.stringify(jsonData));
+			// var responsetext = xhr.responseText;
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("boss状态调整成功")
+						location.reload();
+					}
+
+					if (xhr.status === 403){
+						alert("用户权限不足");
+					}
+					if (xhr.status === 415){
+						alert("输入数值有误");
+					}
+				}
+			}
+		}
+
+
+	</script>
+
 </head>
 <body>
 
@@ -183,11 +254,11 @@
 	</div>
 
 	<div class="column">
-		<form action="/index/attack" method="post">
+		<div>
 			<h2>报刀</h2>
 			普通成员、管理员均可用
 			<br>
-			攻击目标：<select name="bossid">
+			攻击目标：<select id="bossid">
 			<option value="1">1王</option>
 			<option value="2">2王</option>
 			<option value="3">3王</option>
@@ -195,16 +266,16 @@
 			<option value="5">5王</option>
 		</select>
 			<br>
-			造成伤害：<input type="text" name="atkval" placeholder="输入伤害">
+			造成伤害：<input type="text" id="atkval" placeholder="输入伤害">
 			<br>
-			<input class="button" type="submit" value="攻击">
-		</form>
+			<button onclick="Attack()" value="攻击">攻击</button>
+		</div>
 
-		<form action="/index/correction" method="post">
+		<div>
 			<h2>调整boss状态</h2>
 			仅管理员可用
 			<br>
-			调整目标：<select name="bossid">
+			调整目标：<select id="bossidc">
 			<option value="1">1王</option>
 			<option value="2">2王</option>
 			<option value="3">3王</option>
@@ -212,12 +283,12 @@
 			<option value="5">5王</option>
 		</select>
 			<br>
-			调整后周目：<input type="text" name="bosssyume" size="10" placeholder="输入一个正整数">
+			调整后周目：<input type="text" id="bosssyume" size="10" placeholder="输入一个正整数">
 			<br>
-			调整后血量：<input type="text" name="bossvalue" placeholder="输入血量">
+			调整后血量：<input type="text" id="bossvalue" placeholder="输入血量">
 			<br>
-			<input class="button" type="submit" value="调整">
-		</form>
+			<button onclick="Correction()">调整</button>
+		</div>
 
 	</div>
 

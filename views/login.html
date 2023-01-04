@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>登录</title>
+  <title>注册</title>
   <style>
     body{
       background: url(/statics/image/20221210_072736.jpg);
@@ -14,7 +14,7 @@
       background-size:cover;
 
     }
-    form{
+    .form{
       /* 设置form大小 */
       width: 400px;
       height: 250px;
@@ -96,23 +96,81 @@
       /* 悬空的时候有被选中的样子 出现下划线*/
       text-decoration: underline;
     }
+
+    button {
+      padding: 12.5px 30px;
+      border: 0;
+      border-radius: 100px;
+      background-color: #2ba8fb;
+      color: #ffffff;
+      font-weight: Bold;
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+    }
+
+    button:hover {
+      background-color: #6fc5ff;
+      box-shadow: 0 0 20px #6fc5ff50;
+    }
+
+    button:active {
+      background-color: #3d94cf;
+      transition: all 0.25s;
+      -webkit-transition: all 0.25s;
+      box-shadow: none;
+    }
   </style>
+
+  <script type="text/javascript">
+    function Login() {
+      const xhr = new XMLHttpRequest();
+      xhr.open("POST", "/login/authentication", true);
+      xhr.setRequestHeader("Content-Type", "application/json");
+      // var formData = new FormData();
+      var username = document.getElementById("username").value;
+      var password = document.getElementById("password").value;
+      // formData.append("username", username);
+      // formData.append("password", password);
+      var jsonData = {
+        "username": username,
+        "password": password,
+      }
+      xhr.send(JSON.stringify(jsonData));
+      // var responsetext = xhr.responseText;
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4) {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            alert("登录成功，点击确认进入会战页面")
+            window.location.href = "/index";
+          }else{
+            if (xhr.status === 401){
+              alert("账号或密码错误");
+            }
+          }
+        }
+      };
+    }
+
+
+
+  </script>
+
 </head>
 
 <body>
-<form action="/login/authentication" method="post">
+<!--<form action="/register" method="post" id="register">-->
+<div class="form">
   <p>用户名<br />
-    <input name="username" type="text" class="textinput" placeholder="请输入用户名" />
+    <input id="username" type="text" class="textinput" placeholder="请输入用户名" value="" />
   </p>
   <p>密码<br />
-    <input name="password" type="password" class="textinput" placeholder="请输入密码" />
+    <input id="password" type="password" class="textinput" placeholder="请输入密码" value="" />
   </p>
-  <p>
-    <input type="submit" value="登录" />
+    <button onclick="Login()">登录</button>
+  <p class="smtxt">还没有账户？<a href="/register">注册</a>
   </p>
-  <p class="smtxt">还没有账户？<a href="/register">注册</a></a>
-  </p>
-</form>
+    <!--</form>-->
+</div>
 </body>
 
 </html>

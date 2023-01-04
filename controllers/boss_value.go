@@ -26,11 +26,18 @@ func BossValue(ctx *gin.Context) {
 
 // PostToContent IndexPost 获取对boss攻击的post
 func PostToContent(ctx *gin.Context) (int, int64, error) {
-	boss_id, err := strconv.Atoi(ctx.PostForm("bossid"))
+	type AttackJson struct {
+		BossID      string `json:"bossid"`
+		AttackValue string `json:"atkval"`
+	}
+	var attackJson AttackJson
+	_ = ctx.ShouldBindJSON(&attackJson)
+
+	boss_id, err := strconv.Atoi(attackJson.BossID)
 	if err != nil {
 		return 0, 0, errors.New("bossid类型错误，应为整数\n")
 	}
-	attack_value, err := strconv.ParseInt(ctx.PostForm("atkval"), 0, 64)
+	attack_value, err := strconv.ParseInt(attackJson.AttackValue, 0, 64)
 	if err != nil {
 		return 0, 0, errors.New("atkval类型错误，应为整数\n")
 	}
@@ -81,7 +88,7 @@ func AttackBoss(ctx *gin.Context) {
 	if attack_value < boss_value {
 		boss_value -= attack_value
 		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Update("boss_value", boss_value)
-		ctx.String(200, "出刀完成")
+		ctx.String(201, "出刀完成")
 	} else {
 		boss_syume += 1
 		boss_stage := SyumeToStage(boss_syume)
@@ -90,7 +97,7 @@ func AttackBoss(ctx *gin.Context) {
 			BossValue: boss_value,
 			BossSyume: boss_syume,
 		})
-		ctx.String(200, "出尾刀完成")
+		ctx.String(202, "出尾刀完成")
 	}
 
 }
@@ -121,15 +128,24 @@ func SetBossSyumeAndValueAuth(username string) error {
 
 // PostToContentWhenCor 获取调整boss的post
 func PostToContentWhenCor(ctx *gin.Context) (int, int, int64, error) {
-	boss_id, err := strconv.Atoi(ctx.PostForm("bossid"))
+	type CorrectionJson struct {
+		BossID    string `json:"bossid"`
+		BossSyume string `json:"bosssyume"`
+		BossValue string `json:"bossvalue"`
+	}
+
+	var correctionJson CorrectionJson
+	_ = ctx.ShouldBindJSON(&correctionJson)
+
+	boss_id, err := strconv.Atoi(correctionJson.BossID)
 	if err != nil {
 		return 0, 0, 0, errors.New("bossid类型错误，应为整数\n")
 	}
-	boss_syume, err := strconv.Atoi(ctx.PostForm("bosssyume"))
+	boss_syume, err := strconv.Atoi(correctionJson.BossSyume)
 	if err != nil {
 		return 0, 0, 0, errors.New("bosssyume类型错误，应为整数\n")
 	}
-	boss_value, err := strconv.ParseInt(ctx.PostForm("bossvalue"), 0, 64)
+	boss_value, err := strconv.ParseInt(correctionJson.BossValue, 0, 64)
 	if err != nil {
 		return 0, 0, 0, errors.New("bossvalue类型错误，应为整数\n")
 	}
@@ -145,6 +161,7 @@ func SetBossSyumeAndValue(ctx *gin.Context) {
 		ctx.String(403, err.Error())
 		panic(err)
 	}
+
 	boss_id, boss_syume, boss_value, err := PostToContentWhenCor(ctx)
 	if err != nil {
 		ctx.String(415, err.Error())
