@@ -1,0 +1,49 @@
+body {
+    height: 100vh;
+    margin: 0;
+    background: url(/statics/image/77728001_27691_0.jpg);
+    /* 设置背景铺满 */
+    background-repeat:no-repeat;
+    background-size:cover;
+}
+
+.header {
+    background: url(/statics/image/71502133_27691_0.jpg);
+    padding: 20px;
+    text-align: center;
+}
+
+.topnav {
+    overflow: hidden;
+    /*background-color: #333;*/
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.topnav a:hover {
+    background-color: pink;
+    color: gray;
+}
+
+.column{
+    padding: 1% 12% 2% 12%;
+    text-shadow: rgba(62,66,66,0.55) -10px 7px 11px;
+    background-color: #E1E9EF;
+    opacity: 70%;
+}
+
+
+table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+table.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px 0 1px 0;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+table.tftable tr {background-color:#ffffff;}
+table.tftable td {font-size:12px;border-width: 1px 0 1px 0;padding: 8px;border-style: solid;border-color: #729ea5;}
+

@@ -9,6 +9,7 @@ import (
 
 func main() {
 	r := gin.Default()
+	r.Static("/views", "./views")
 	r.Use(common.AddCookie())
 	r.LoadHTMLGlob("./views/**.html")
 	routes.InitRouter(r)
