@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出刀记录</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="/statics/image/1.ico" rel="shortcut icon">
+    <style>
+      body {
+        height: 100vh;
+        margin: 0;
+        background: url(/statics/image/77728001_27691_0.jpg);
+        /* 设置背景铺满 */
+        background-repeat:no-repeat;
+        background-size:cover;
+      }
+
+      .header {
+          background: url(/statics/image/71502133_27691_0.jpg);
+          padding: 20px;
+          text-align: center;
+      }
+
+      .topnav {
+          overflow: hidden;
+          /*background-color: #333;*/
+          background: rgb(238,174,202);
+          background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+      }
+
+      .topnav a {
+          float: left;
+          display: block;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+      }
+
+      .topnav a:hover {
+          background-color: pink;
+          color: gray;
+      }
+
+      .column{
+          padding: 1% 12% 2% 12%;
+          text-shadow: rgba(62,66,66,0.55) -10px 7px 11px;
+          background-color: #E1E9EF;
+          opacity: 70%;
+      }
+
+
+      table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+      table.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px 0 1px 0;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+      table.tftable tr {background-color:#ffffff;}
+      table.tftable td {font-size:12px;border-width: 1px 0 1px 0;padding: 8px;border-style: solid;border-color: #729ea5;}
+
+
+    </style>
+
+    <script type="text/javascript">
+        window.onload=function(){
+            var tfrow = document.getElementById('tfhover').rows.length;
+            var tbRow=[];
+            for (var i=1;i<tfrow;i++) {
+                tbRow[i]=document.getElementById('tfhover').rows[i];
+                tbRow[i].onmouseover = function(){
+                    this.style.backgroundColor = '#f3f8aa';
+                };
+                tbRow[i].onmouseout = function() {
+                    this.style.backgroundColor = '#ffffff';
+                };
+            }
+        };
+    </script>
+
+</head>
+<body>
+    <div class="header">
+        <h1>出刀记录</h1>
+        <p>虽然生活很辛苦，但刀还是要出的（笑）</p>
+    </div>
+
+    <div class="topnav">
+        <a href="/index">返回首页</a>
+    </div>
+    <div class="column">
+        <p style="text-align: center"><b>只展示最新的20条数据，更多数据请到数据库查看</b></p>
+        <table id="tfhover" class="tftable" border="1">
+            <tr><th>记录ID</th><th>用户名</th><th>对象</th><th>造成伤害</th><th>时间</th></tr>
+            <tr><td>{{.one.id}}</td><td>{{.one.username}}</td><td>{{.one.target}}</td><td>{{.one.attackvalue}}</td><td>{{.one.time}}</td></tr>
+            <tr><td>{{.two.id}}</td><td>{{.two.username}}</td><td>{{.two.target}}</td><td>{{.two.attackvalue}}</td><td>{{.two.time}}</td></tr>
+            <tr><td>{{.three.id}}</td><td>{{.three.username}}</td><td>{{.three.target}}</td><td>{{.three.attackvalue}}</td><td>{{.three.time}}</td></tr>
+            <tr><td>{{.four.id}}</td><td>{{.four.username}}</td><td>{{.four.target}}</td><td>{{.four.attackvalue}}</td><td>{{.four.time}}</td></tr>
+            <tr><td>{{.five.id}}</td><td>{{.five.username}}</td><td>{{.five.target}}</td><td>{{.five.attackvalue}}</td><td>{{.five.time}}</td></tr>
+            <tr><td>{{.six.id}}</td><td>{{.six.username}}</td><td>{{.six.target}}</td><td>{{.six.attackvalue}}</td><td>{{.six.time}}</td></tr>
+            <tr><td>{{.seven.id}}</td><td>{{.seven.username}}</td><td>{{.seven.target}}</td><td>{{.seven.attackvalue}}</td><td>{{.seven.time}}</td></tr>
+            <tr><td>{{.eight.id}}</td><td>{{.eight.username}}</td><td>{{.eight.target}}</td><td>{{.eight.attackvalue}}</td><td>{{.eight.time}}</td></tr>
+            <tr><td>{{.nine.id}}</td><td>{{.nine.username}}</td><td>{{.nine.target}}</td><td>{{.nine.attackvalue}}</td><td>{{.nine.time}}</td></tr>
+            <tr><td>{{.ten.id}}</td><td>{{.ten.username}}</td><td>{{.ten.target}}</td><td>{{.ten.attackvalue}}</td><td>{{.ten.time}}</td></tr>
+            <tr><td>{{.eleven.id}}</td><td>{{.eleven.username}}</td><td>{{.eleven.target}}</td><td>{{.eleven.attackvalue}}</td><td>{{.eleven.time}}</td></tr>
+            <tr><td>{{.twelve.id}}</td><td>{{.twelve.username}}</td><td>{{.twelve.target}}</td><td>{{.twelve.attackvalue}}</td><td>{{.twelve.time}}</td></tr>
+            <tr><td>{{.thirteen.id}}</td><td>{{.thirteen.username}}</td><td>{{.thirteen.target}}</td><td>{{.thirteen.attackvalue}}</td><td>{{.thirteen.time}}</td></tr>
+            <tr><td>{{.fourteen.id}}</td><td>{{.fourteen.username}}</td><td>{{.fourteen.target}}</td><td>{{.fourteen.attackvalue}}</td><td>{{.fourteen.time}}</td></tr>
+            <tr><td>{{.fifteen.id}}</td><td>{{.fifteen.username}}</td><td>{{.fifteen.target}}</td><td>{{.fifteen.attackvalue}}</td><td>{{.fifteen.time}}</td></tr>
+            <tr><td>{{.sixteen.id}}</td><td>{{.sixteen.username}}</td><td>{{.sixteen.target}}</td><td>{{.sixteen.attackvalue}}</td><td>{{.sixteen.time}}</td></tr>
+            <tr><td>{{.seventeen.id}}</td><td>{{.seventeen.username}}</td><td>{{.seventeen.target}}</td><td>{{.seventeen.attackvalue}}</td><td>{{.seventeen.time}}</td></tr>
+            <tr><td>{{.eighteen.id}}</td><td>{{.eighteen.username}}</td><td>{{.eighteen.target}}</td><td>{{.eighteen.attackvalue}}</td><td>{{.eighteen.time}}</td></tr>
+            <tr><td>{{.nineteen.id}}</td><td>{{.nineteen.username}}</td><td>{{.nineteen.target}}</td><td>{{.nineteen.attackvalue}}</td><td>{{.nineteen.time}}</td></tr>
+            <tr><td>{{.twenty.id}}</td><td>{{.twenty.username}}</td><td>{{.twenty.target}}</td><td>{{.twenty.attackvalue}}</td><td>{{.twenty.time}}</td></tr>
+        </table>
+    </div>
+</body>
+</html>
+

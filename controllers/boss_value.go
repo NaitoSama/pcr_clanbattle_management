@@ -78,7 +78,6 @@ func SyumeToStage(boss_syume int) string {
 }
 
 // AttackBoss 攻击boss判定与执行
-// todo 击败boss后清理挂树人员 出刀后清理进入人员
 func AttackBoss(ctx *gin.Context) {
 	boss_id, attack_value, err := PostToContent(ctx)
 	if err != nil {
@@ -86,12 +85,18 @@ func AttackBoss(ctx *gin.Context) {
 		panic(err)
 	}
 	boss_value, boss_syume := GetBossValueAndSyume(boss_id)
+	username := common.CookieToUserName(ctx)
+	time := common.GetNowTimeString()
 	if attack_value < boss_value {
 		boss_value -= attack_value
-		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Update("boss_value", boss_value)
-		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Update("jinru", " ")
+		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Updates(models.Boss{
+			BossValue: boss_value,
+			JinRu:     " ",
+		})
+
 		ctx.String(201, "出刀完成")
 	} else {
+		attack_value = boss_value
 		boss_syume += 1
 		boss_stage := SyumeToStage(boss_syume)
 		boss_value = StageToGetBossValue(boss_id, boss_stage)
@@ -104,7 +109,13 @@ func AttackBoss(ctx *gin.Context) {
 		})
 		ctx.String(202, "出尾刀完成")
 	}
-
+	record := models.Record{
+		Username:    username,
+		DateTime:    time,
+		Target:      boss_id,
+		AttackValue: attack_value,
+	}
+	models.DB.Create(&record)
 }
 
 // SetBossSyumeAndValueDetection 调整boss周目和血量的数值检测

@@ -43,6 +43,7 @@ func InitRouter(r *gin.Engine) {
 		index.POST("/guashu", controllers.GuaShu)
 		index.POST("/jinru", controllers.JinRu)
 		index.POST("/jinru/revocation", controllers.JinRuRevocation)
+		index.GET("/record", controllers.Record)
 	}
 
 }
