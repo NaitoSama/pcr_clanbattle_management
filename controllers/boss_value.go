@@ -78,6 +78,7 @@ func SyumeToStage(boss_syume int) string {
 }
 
 // AttackBoss 攻击boss判定与执行
+// todo 击败boss后清理挂树人员 出刀后清理进入人员
 func AttackBoss(ctx *gin.Context) {
 	boss_id, attack_value, err := PostToContent(ctx)
 	if err != nil {
@@ -88,6 +89,7 @@ func AttackBoss(ctx *gin.Context) {
 	if attack_value < boss_value {
 		boss_value -= attack_value
 		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Update("boss_value", boss_value)
+		models.DB.Model(models.Boss{}).Where("bossid = ?", boss_id).Update("jinru", " ")
 		ctx.String(201, "出刀完成")
 	} else {
 		boss_syume += 1
@@ -97,6 +99,8 @@ func AttackBoss(ctx *gin.Context) {
 			BossValue:   boss_value,
 			BossSyume:   boss_syume,
 			NowMaxValue: boss_value,
+			GuaShu:      " ",
+			JinRu:       " ",
 		})
 		ctx.String(202, "出尾刀完成")
 	}
@@ -179,6 +183,8 @@ func SetBossSyumeAndValue(ctx *gin.Context) {
 		BossValue:   boss_value,
 		BossSyume:   boss_syume,
 		NowMaxValue: now_max_value,
+		JinRu:       " ",
+		GuaShu:      " ",
 	})
 	ctx.String(200, "boss状态调整成功")
 }

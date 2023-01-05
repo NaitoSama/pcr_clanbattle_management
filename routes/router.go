@@ -40,6 +40,9 @@ func InitRouter(r *gin.Engine) {
 		index.POST("/correction", controllers.SetBossSyumeAndValue)
 		index.GET("/homepage", controllers.MyHomePage)
 		index.GET("/logout", controllers.LogOut)
+		index.POST("/guashu", controllers.GuaShu)
+		index.POST("/jinru", controllers.JinRu)
+		index.POST("/jinru/revocation", controllers.JinRuRevocation)
 	}
 
 }

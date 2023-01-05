@@ -212,6 +212,69 @@
 			return Math.ceil(Number(a) / Number(b) * 100)
 		}
 
+		function GuaShu(bossid){
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/index/guashu", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			var jsonData = {
+				"bossid": bossid,
+			}
+			xhr.send(JSON.stringify(jsonData));
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("挂树成功")
+						location.reload();
+					}
+					if (xhr.status === 400){
+						alert("请勿重复挂树");
+					}
+				}
+			}
+		}
+
+		function JinRu(bossid){
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/index/jinru", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			var jsonData = {
+				"bossid": bossid,
+			}
+			xhr.send(JSON.stringify(jsonData));
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("申请攻击boss成功")
+						location.reload();
+					}
+					if (xhr.status === 400){
+						alert("有人在打啦");
+					}
+				}
+			}
+		}
+
+		function JinRuRevocation(bossid){
+			const xhr = new XMLHttpRequest();
+			xhr.open("POST", "/index/jinru/revocation", true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			var jsonData = {
+				"bossid": bossid,
+			}
+			xhr.send(JSON.stringify(jsonData));
+			xhr.onreadystatechange = function () {
+				if (xhr.readyState === 4) {
+					if (xhr.status === 200) {
+						alert("撤销成功")
+						location.reload();
+					}
+					if (xhr.status === 400){
+						alert("不能撤销他人的申请哦");
+					}
+				}
+			}
+		}
+
 
 	</script>
 
@@ -245,6 +308,17 @@
 			boss1m = document.getElementById("boss1m").textContent
 			document.getElementById("progress1").value = ProgressBar(boss1n,boss1m)
 		</script>
+		<p>
+			挂树：{{.first.guashu}}
+		</p>
+		<p>
+			”{{.first.jinru}}“正在攻打boss！
+		</p>
+		<span>
+			<button onclick="GuaShu(1)">挂树</button>
+			<button onclick="JinRu(1)">我进了</button>
+			<button onclick="JinRuRevocation(1)">撤销“我进了”</button>
+		</span>
 
 	</div>
 
@@ -263,6 +337,17 @@
 			boss2m = document.getElementById("boss2m").textContent
 			document.getElementById("progress2").value = ProgressBar(boss2n,boss2m)
 		</script>
+		<p>
+			挂树：{{.second.guashu}}
+		</p>
+		<p>
+			”{{.second.jinru}}“正在攻打boss！
+		</p>
+		<span>
+			<button onclick="GuaShu(2)">挂树</button>
+			<button onclick="JinRu(2)">我进了</button>
+			<button onclick="JinRuRevocation(2)">撤销“我进了”</button>
+		</span>
 	</div>
 
 	<div class="column">
@@ -280,6 +365,17 @@
 			boss3m = document.getElementById("boss3m").textContent
 			document.getElementById("progress3").value = ProgressBar(boss3n,boss3m)
 		</script>
+		<p>
+			挂树：{{.third.guashu}}
+		</p>
+		<p>
+			”{{.third.jinru}}“正在攻打boss！
+		</p>
+		<span>
+			<button onclick="GuaShu(3)">挂树</button>
+			<button onclick="JinRu(3)">我进了</button>
+			<button onclick="JinRuRevocation(3)">撤销“我进了”</button>
+		</span>
 	</div>
 	<div class="column">
 		<h2>4王</h2>
@@ -296,6 +392,17 @@
 			boss4m = document.getElementById("boss4m").textContent
 			document.getElementById("progress4").value = ProgressBar(boss4n,boss4m)
 		</script>
+		<p>
+			挂树：{{.fourth.guashu}}
+		</p>
+		<p>
+			”{{.fourth.jinru}}“正在攻打boss！
+		</p>
+		<span>
+			<button onclick="GuaShu(4)">挂树</button>
+			<button onclick="JinRu(4)">我进了</button>
+			<button onclick="JinRuRevocation(4)">撤销“我进了”</button>
+		</span>
 	</div>
 	<div class="column">
 		<h2>5王</h2>
@@ -312,6 +419,17 @@
 			boss5m = document.getElementById("boss5m").textContent
 			document.getElementById("progress5").value = ProgressBar(boss5n,boss5m)
 		</script>
+		<p>
+			挂树：{{.fifth.guashu}}
+		</p>
+		<p>
+			”{{.fifth.jinru}}“正在攻打boss！
+		</p>
+		<span>
+			<button onclick="GuaShu(5)">挂树</button>
+			<button onclick="JinRu(5)">我进了</button>
+			<button onclick="JinRuRevocation(5)">撤销“我进了”</button>
+		</span>
 	</div>
 
 	<div class="column">
