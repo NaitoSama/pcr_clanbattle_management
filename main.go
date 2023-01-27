@@ -10,10 +10,11 @@ import (
 func main() {
 	r := gin.Default()
 	r.Static("/views", "./views")
-	r.Use(common.AddCookie())
+	r.Use(common.AddCookie(), common.TlsHandler())
 	r.LoadHTMLGlob("./views/**.html")
 	routes.InitRouter(r)
-	err := r.Run(":8080")
+	err := r.RunTLS(":8080", "./pekopekopeko.online_bundle.pem", "pekopekopeko.online.key")
+	//err := r.Run(":8080")
 	if err != nil {
 		log.Println(err)
 	}
