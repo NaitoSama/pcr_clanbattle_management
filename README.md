@@ -2,7 +2,7 @@
 
 后端使用gin+gorm这俩框架，前端正常三大件
 
-[演示网站](https://pekopekopeko.online:18080/index)
+[演示网站](https://43.134.236.220:8080/index)
 
 ## 主要功能
 
